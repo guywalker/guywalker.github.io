@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Bolt Demo</title>
+
+  <!-- Demo css-->
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Helvetica, sans-serif;
+      color: #5d5d5d;
+    }
+    .banner {
+      height: 300px;
+      background: #A9BEC2;
+      color: #fff;
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .banner h1 {
+      margin: 0;
+      font-size: 5rem;
+    }
+
+    .banner h3 {
+      font-weight: normal;
+    }
+
+    .banner .fa-bolt {
+      color: #FDEA4F;
+      text-shadow: 1px 1px 15px #fff5a5ba;
+    }
+
+    .container {
+      max-width: 1100px;
+      padding: 3rem 4rem;
+      margin: 0 auto;
+    }
+
+    hr {
+      margin: 3rem 0;
+      border: none;
+      border-top: 2px solid #a9bec2;
+    }
+
+    .box-left {
+      padding: 1em;
+    }
+
+    div.suggestions {
+      display: flex; justify-content: center;
+    }
+  </style>
+
+  <!-- Lucidworks.cloud embed script -->
+<!-- <script async="false" src="http://localhost:8080/embed/v1/ui/loader.js"></script> -->
+
+<!-- <script async="false" src="https://hogwarts.lucidworks.cloud/appius-creatios/embed/v1/ui/loader.js"></script> -->
+
+<!-- Lucidworks.cloud embed script -->
+<!-- Lucidworks.cloud embed script -->
+<script src="cloud-bolt.js"></script>
+
+<link rel="stylesheet" type="text/css" href="appkit-bolt.css">
+
+
+</head>
+<body>
+
+  <div class="container">
+
+    <div id="loading-bar"></div>
+    <div class="suggestions"></div>
+
+    <hr>
+
+    <div class="tk-rgrid-g">
+      <div class="tk-rgrid-u-1 tk-rgrid-u-md-1-4" id="facets">
+      </div>
+      <div class="tk-rgrid-u-1 tk-rgrid-u-md-3-4">
+        <div class="tk-rgrid-box pt0em">
+          <div id="tabs" class="tk-rgrid-box pr0em pl0em pt0em"></div>
+          <div id="breadcrumbs"></div>
+          <div id="stats"></div>
+          <div id="results"></div>
+          <div id="no-results"></div>
+          <div id="pagination"></div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+<script type="text/javascript">
+  // Define initial query
+let query = Appkit.query()
+  .facets('Country of affiliation,Prize Category,facialhair,gender')
+  .custom('top', '&top=10');
+
+// Define platform
+let platform = Appkit.platform('platforms.workflow.laureates')
+  .host('nobel.divedeeper.io')
+  .port(80)
+  .onResponse(query, function (response) {
+    // Response callback
+
+    // Create result list
+    Appkit.results(response, function(result) {
+      return Telemark.result(
+        Telemark.field(result, {name: 'full_name', label: 'Full name', styling: 'title', urlfield:'id', urlPrefix: 'http://nobel.divedeeper.io/#/laureates/', target: '_blank'}),
+        Telemark.field(result, {name: 'Country of birth', query: true}),
+        Telemark.field(result, {name: 'age', label: 'Age', show: 1, query: true}),
+        Telemark.field(result, {name: 'gender', label: 'Gender', query: true}),
+        Telemark.field(result, {name: 'Prize Category', query: true}),
+        Telemark.field(result, {name: 'motivation', styling: 'description'})
+      );
+    })
+      .query(query) // Click on fields to filter
+      .into('results'); // Render in #results element
+
+    // No results
+    Appkit.noResults(response).into('no-results');
+
+    // Facet list
+    Appkit.facets(response, query, {facetNames: 'Country of affiliation,gender=Gender,facialhair=Facial Hair'}).into('facets');
+
+    // Breadcrumbs
+    Appkit.breadcrumbs(response, query, {groupByField: true}).into('breadcrumbs');
+
+    // Response stats
+    Appkit.responseStatistics(response).into('stats');
+
+    // Pagination
+    Appkit.pagination(response, query).into('pagination');
+
+    // Tabs
+    Appkit.tabs(response, query, {"fieldName":"Prize Category"}).into('tabs');
+
+  });
+
+// Create a search box with suggestions
+Appkit.searchBox(query)
+  .platform(platform) // Set platform for type ahead
+  .typeahead('services.suggestions.static')
+  .into('.suggestions');
+
+// Loading bar
+Appkit.loadingBar(query).into('loading-bar');
+
+// Fire initial query
+query.update();
+</script>
+</body>
+</html>

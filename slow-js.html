@@ -1,0 +1,117 @@
+<!doctype html>
+<html>
+  <head>
+    
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script async="false" src="static/slow.js"></script>
+  <script type="text/javascript">
+    function sleep(milliseconds) {
+        var start = new Date().getTime();
+        for (var i = 0; i < 1e7; i++) {
+          if ((new Date().getTime() - start) > milliseconds){
+            break;
+          }
+        }
+      }
+    $(window).on('load', function(){ 
+      console.log(new Date());
+      console.log('after!');
+      sleep(10000);
+      console.log(new Date());
+      $("#html").html('<div id="floater">\n<div id="search"><cloud-search-box></cloud-search-box></div>\n\t<div id="tabs"><cloud-tabs></cloud-tabs></div>\n\t</div>\n\t<div id="floater">\n\t    <div id="left">\n      <div id="facets"><cloud-facets></cloud-facets></div>\n      <div id="more"><cloud-more-like-this></cloud-more-like-this></div>\n    </div>\n    <div id="right">\n      <div id="results"><cloud-results></cloud-results></div>\n    </div>\n</div>');
+    });
+  </script>
+  
+    <link rel="stylesheet" href="/static/style.css">
+    <title>Index - My Webpage</title>
+    
+  <style type="text/css">
+    .important { color: #336699; }
+    #floater > div{
+      float: left;
+    }
+
+    #floater::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+
+    #right {
+      width: 80%;
+    }
+
+    #left {
+      width: 19%;
+    }
+  </style>
+
+    <!-- Lucidworks.cloud embed script -->
+	  <script async="false" src="https://guy.dev.lucidworks.cloud/slow/embed/v1/ui/loader.js"></script>
+  </head>
+  <body>
+  	<div id="header">
+  		<ul class="nav">
+		    
+		    <li>
+		        <a href="/backbonejs">backbonejs</a>
+		    </li>
+		    
+		    <li>
+		        <a href="/lodash">lodash</a>
+		    </li>
+		    
+		    <li>
+		        <a href="/slow_js">slow_js</a>
+		    </li>
+		    
+		    <li>
+		        <a href="/table">table</a>
+		    </li>
+		    
+		    <li>
+		        <a href="/jq">jq</a>
+		    </li>
+		    
+		    <li>
+		        <a href="/slow_body">slow_body</a>
+		    </li>
+		    
+		    <li>
+		        <a href="/angularV1">angularV1</a>
+		    </li>
+		    
+		    <li>
+		        <a href="/bad_js_before">bad_js_before</a>
+		    </li>
+		    
+		    <li>
+		        <a href="./">home</a>
+		    </li>
+		    
+		    <li>
+		        <a href="/embed">embed</a>
+		    </li>
+		    
+		    <li>
+		        <a href="/divs">divs</a>
+		    </li>
+		    
+		    <li>
+		        <a href="/bad_js">bad_js</a>
+		    </li>
+		    
+		</ul>
+  	</div>
+    <div id="messages"></div>
+    <div id="content">
+  <h1><a href='https://mystery-inc.lucidworks.cloud/scooby'>mystery-inc.lucidworks.cloud/scooby</a></h1>
+  <div id="html"></div>
+</div>
+    <div id="footer">
+      
+      &copy; Copyright 2010 by <a href="http://domain.invalid/">you</a>.
+      
+    </div>
+  </body>
+</html>
