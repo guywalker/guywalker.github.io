@@ -1,2 +1,9 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<img src="/images/dexter.jpg" alt="Dexter">
+
+<style>
+  img {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+  }
+</style>
