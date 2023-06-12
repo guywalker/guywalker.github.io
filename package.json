@@ -4,7 +4,7 @@
 	"private": true,
 	"scripts": {
 		"start": "vite dev --open",
-		"gh-pages": "npm run build && npx gh-pages -d build",
+		"deploy": "npm run build && npx gh-pages -d build -t true",
 		"build": "vite build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",

@@ -10,10 +10,15 @@
     noSleep = new NoSleep();
   }
 
-  async function enableNoSleep() {
+  async function enableNoSleep(minutes?: number) {
     try {
       noSleep.enable();
       wakeLockEnabled = true;
+      if (minutes) {
+        setTimeout(() => {
+          disableNoSleep();
+        }, minutes * 60 * 1000);
+      }
     } catch (err) {
       wakeLockEnabled = false;
     }
@@ -27,8 +32,10 @@
 
 <div class="foreground" class:foreground--active="{wakeLockEnabled}">
   <div class="panel">
-    <button on:click={enableNoSleep}>Enable wake lock</button>
-    <button on:click={disableNoSleep}>Disable wake lock</button>
+    <button on:click={() => enableNoSleep()}>On</button>
+    <button on:click={disableNoSleep}>Off</button>
+    <button on:click={() => enableNoSleep(15)}>15 mins</button>
+    <button on:click={() => enableNoSleep(30)}>30 mins</button>
   </div>
 </div>
 
